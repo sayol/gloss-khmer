@@ -1,4 +1,4 @@
-\ProvidesFile{gloss-khmer.ldf}[polyglossia: module for Khmer]
+﻿\ProvidesFile{gloss-khmer.ldf}[polyglossia: module for Khmer]
 \PolyglossiaSetup{khmer}{
 	script=Khmer,%
 	scripttag=khmr,%
@@ -8,7 +8,7 @@
 }
 \newif\if@khmer@numerals
 \def\tmp@khmer{khmer}
-\define@key{khmer}{numerals}[arabic]{%
+\define@key{khmer}{numerals}[khmer]{%
 	\def\@tmpa{#1}%
 	\ifx\@tmpa\tmp@khmer\@khmer@numeralstrue%
 	\else\@khmer@numeralsfalse\fi%
@@ -21,7 +21,7 @@
 	\def\bibname{គន្ថនិទ្ទេស}%
 	\def\chaptername{ជំពូក}%
 	\def\appendixname{សេចក្ដីបន្ថែម}%
-	\def\contentsname{មាតិការ}%
+	\def\contentsname{មាតិកា}%
 	\def\listfigurename{បញ្ជីរូបភាព}%
 	\def\listtablename{បញ្ជីតារាង}%
 	\def\indexname{សន្ទស្សន៍}%
@@ -35,6 +35,7 @@
 	\def\ccname{ចម្លងជួន}%
 	\def\headtoname{ផ្ញើរទៅ}%
 	\def\proofname{សម្រាយ}%
+	\def\answername{ចម្លើយ}%
 	\def\glossaryname{សទានុក្រម}%
 }
 \def\datekhmer{%
@@ -119,16 +120,14 @@
 	\let\@Alph\@latinAlph%
 }
 \def\blockextras@khmer{%
-	\XeTeXlinebreaklocale "kh" % 
-	\XeTeXlinebreakskip = 0pt plus 1pt minus 1pt
-%	\let\orig@baselinestretch\baselinestretch%
-%	\renewcommand{\baselinestretch}{1.2}% not work
+	\XeTeXlinebreaklocale "kh"% 
+	\XeTeXlinebreakskip = 0pt plus1pt minus1pt%
 }
 \def\noblockextras@khmer{% 
 	\XeTeXlinebreaklocale "en"%
-%	\let\baselinestretch\orig@baselinestretch%
 }
 \@ifclassloaded{beamer}{%
+\mode<presentation>{
 	\usefonttheme{professionalfonts}%
 	\def\factname{ស្វ័យសត្យ}%
 	\def\lemmaname{បទគន្លិះ}%
@@ -152,6 +151,8 @@
 	\deftranslation[to=khmer]{Examples}{\examplename}%
 	\AtEndDocument{\immediate\write\@auxout{\string\@writefile{nav}%
 		{\noexpand\headcommand{\noexpand\def\noexpand%
-		\inserttotalframenumber{\khmernumber{\the\c@framenumber}}}}}}%
+		\inserttotalframenumber{\noexpand\khmernumber{\the\c@framenumber}}}}}}%
+	}%
 }{}
+\newenvironment{arabicnumerals}{\let\@arabic\orig@arabic}{\let\@arabic\khmernumber}
 \endinput
